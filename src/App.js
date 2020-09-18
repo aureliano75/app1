@@ -1,17 +1,73 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Chart from 'chart.js';
 
+const App = ()=>{
+  const APP_ID = "0f18e732";
+  const APP_KEY= "80d5a28dbb060aa07afc8f8dacdc15c1";
 
-function App() {
-  return (
-    <div>
 
-    <Container />
-    </div>
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [query, setQuery] =useState("");
 
+  useEffect(()=>{
+    getData();
+  },[query]);
+
+  const getData = async ()=>{
+    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
+    const data = await response.json();
+    setRecipes(data.hits);
+    console.log(data.hits);
+  } 
+  
+  const updateSearch = e =>{
+    setSearch(e.target.value);
+    console.log(search);
+  }
+
+  const getSearch = e =>{
+    e.preventDefault();
+    setQuery(search);
+  }
+
+  return(
+  <div style={container}>
+    <form style={container} onSubmit={getSearch} className="transparent">
+      <input type="text" value={search} onChange={updateSearch} className="tenpxpad searchbar"></input>
+      <button type="submit" className="tenpxpad searchbutton">Search</button>
+    </form>
+    {recipes.map(recipe=>(
+          <Recipe 
+            title={recipe.recipe.label}
+            calories={recipe.recipe.calories}
+            image={recipe.recipe.image}
+            ingredients={recipe.recipe.ingredients}
+          />
+          
+        ))} 
+    {/* <Container /> */}
+
+  </div>
+    
   );
 }
+
+const Recipe = ({title,calories,image,ingredients}) =>{
+  return (
+    <div style={container} className="recipe">
+      <h1>{title}</h1>
+      <p>Calories: {parseInt(calories)}</p>
+      <img src={image} alt=""></img>
+      <ul>{ingredients.map(ingredient=>(
+      <li key={ingredient.text}>{ingredient.text}</li>
+      ))}</ul>
+    </div>
+  );
+}
+
+
 
 function H1(props){
   return(
@@ -144,7 +200,7 @@ class Graph extends React.Component{
           maintainAspectRatio: false,
           animation:{
             easing:"easeOutQuint",
-            duration: 1,
+            duration: 1
           }
         }
     });
@@ -269,7 +325,7 @@ const purplebar = {
   width: ""
 };
 
-var bluebar =  {
+const bluebar =  {
   "border-radius": "0px 10px 10px 0px",
   display: "inline-block",
   backgroundColor: "#66ffed",
@@ -292,6 +348,8 @@ const container = {
   width: "80%",
   margin: "auto"
 }
+
+
 
 const loginpage = (
 <div style={redbar}>

@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+.transparent{
+  opacity: 0.5;
+}
+
+.tenpxpad{
+  padding:10px;
+}
+
+.searchbar{
+  width:69%;
+  font-size: large;
+}
+
+.searchbutton{
+  width:29%;
+  font-size: large;
+}
+
+.recipe{
+  outline: 1px solid black;
+}
