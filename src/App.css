@@ -46,15 +46,41 @@
 }
 
 .searchbar{
-  width:69%;
+  width:auto;
   font-size: large;
 }
 
 .searchbutton{
-  width:29%;
+  width:auto;
   font-size: large;
 }
 
+
+.recipe::-webkit-scrollbar {
+  display: none;
+}
 .recipe{
-  outline: 1px solid black;
+  overflow: scroll;
+  height:400px;
+  width:23%;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin:4px;
+}
+
+.recipewrapper{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+h1{
+  width: 100%;
+}
+
+.flexcontainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

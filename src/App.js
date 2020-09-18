@@ -31,13 +31,14 @@ const App = ()=>{
     e.preventDefault();
     setQuery(search);
   }
-
+  
   return(
   <div style={container}>
-    <form style={container} onSubmit={getSearch} className="transparent">
+    <form onSubmit={getSearch} className="transparent">
       <input type="text" value={search} onChange={updateSearch} className="tenpxpad searchbar"></input>
       <button type="submit" className="tenpxpad searchbutton">Search</button>
     </form>
+    <div className="flexcontainer">
     {recipes.map(recipe=>(
           <Recipe 
             title={recipe.recipe.label}
@@ -47,6 +48,8 @@ const App = ()=>{
           />
           
         ))} 
+    </div>
+   
     {/* <Container /> */}
 
   </div>
@@ -56,13 +59,16 @@ const App = ()=>{
 
 const Recipe = ({title,calories,image,ingredients}) =>{
   return (
-    <div style={container} className="recipe">
-      <h1>{title}</h1>
-      <p>Calories: {parseInt(calories)}</p>
-      <img src={image} alt=""></img>
-      <ul>{ingredients.map(ingredient=>(
-      <li key={ingredient.text}>{ingredient.text}</li>
-      ))}</ul>
+    <div className="recipe">
+      <div className="recipewrapper">
+        <h1>{title}</h1>
+        <p>Calories: {parseInt(calories)}</p>
+        <img src={image} alt=""></img>
+        <ul>{ingredients.map((ingredient,i)=>(
+        <li key={i}>{ingredient.text}</li>
+        ))}</ul>
+      </div>
+     
     </div>
   );
 }
